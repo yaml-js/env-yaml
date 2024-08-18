@@ -1471,7 +1471,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^22.3.0":
+"@types/node@npm:*, @types/node@npm:^22.4.0":
   version: 22.4.0
   resolution: "@types/node@npm:22.4.0"
   dependencies:
@@ -1653,7 +1653,7 @@ __metadata:
     "@types/eslint": "npm:^9.6.0"
     "@types/eslint-config-prettier": "npm:^6.11.3"
     "@types/jest": "npm:^29.5.12"
-    "@types/node": "npm:^22.3.0"
+    "@types/node": "npm:^22.4.0"
     "@types/yaml": "npm:^1.9.7"
     "@yaml-js/config-eslint": "npm:^0.1.4"
     "@yaml-js/config-prettier": "npm:^0.1.4"
