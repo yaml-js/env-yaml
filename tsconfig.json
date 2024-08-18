@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
     "noEmit": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "outDir": "dist",
     "target": "ES2022",
     "useDefineForClassFields": true,

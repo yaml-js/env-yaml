@@ -1,15 +1,17 @@
 {
   "packageManager": "yarn@4.4.0",
-  "name": "@yaml-js/env",
+  "name": "@yaml-js/envyaml",
   "description": "Enhance your Vite-powered projects with seamless YAML integration using the Vite YAML Plugin. This lightweight and efficient plugin empowers developers to utilize YAML files directly within their Vite setups.",
   "version": "${FROM TAG}",
   "type": "module",
-  "types": "./dist/yaml-js.env.d.ts",
-  "main": "./dist/yaml-js.env.js",
-  "module": "./dist/yaml-js.env.js",
+  "types": "./dist/yaml-js.envyaml.d.ts",
+  "main": "./dist/yaml-js.envyaml.js",
+  "module": "./dist/yaml-js.envyaml.js",
+  "bin": "./dist/cli/main.js",
   "files": [
     "dist",
-    "./LICENSE"
+    "./LICENSE",
+    "./README.md"
   ],
   "keywords": [
     "yaml",
@@ -18,7 +20,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yaml-js/env"
+    "url": "git+https://github.com/yaml-js/env",
+    "directory": "packages/library"
   },
   "bugs": {
     "url": "https://github.com/yaml-js/env/issues"
@@ -26,9 +29,9 @@
   "homepage": "https://yaml-js.org",
   "exports": {
     ".": {
-      "import": "./dist/yaml-js.env.js",
-      "require": "./dist/yaml-js.env.cjs",
-      "types": "./dist/yaml-js.env.d.ts"
+      "import": "./dist/yaml-js.envyaml.js",
+      "require": "./dist/yaml-js.envyaml.cjs",
+      "types": "./dist/yaml-js.envyaml.d.ts"
     }
   },
   "scripts": {
@@ -46,6 +49,7 @@
     "@types/yaml": "^1.9.7",
     "@yaml-js/config-eslint": "^0.1.4",
     "@yaml-js/config-prettier": "^0.1.4",
+    "@yaml-js/types": "^1.0.1",
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.9.0",
@@ -61,7 +65,6 @@
     "vite": "^5.4.1"
   },
   "dependencies": {
-    "@yaml-js/types": "^1.0.1",
     "yaml": "^2.5.0"
   }
 }

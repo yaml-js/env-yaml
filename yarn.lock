@@ -1646,9 +1646,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yaml-js/env@workspace:.":
+"@yaml-js/envyaml@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@yaml-js/env@workspace:."
+  resolution: "@yaml-js/envyaml@workspace:."
   dependencies:
     "@types/eslint": "npm:^9.6.0"
     "@types/eslint-config-prettier": "npm:^6.11.3"
@@ -1672,6 +1672,8 @@ __metadata:
     typescript-eslint: "npm:^8.1.0"
     vite: "npm:^5.4.1"
     yaml: "npm:^2.5.0"
+  bin:
+    envyaml: ./dist/cli/main.js
   languageName: unknown
   linkType: soft
 
