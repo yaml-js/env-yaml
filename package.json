@@ -7,7 +7,9 @@
   "types": "./dist/yaml-js.envyaml.d.ts",
   "main": "./dist/yaml-js.envyaml.js",
   "module": "./dist/yaml-js.envyaml.js",
-  "bin": "./dist/cli/main.js",
+  "bin": {
+    "envyaml": "./dist/cli/main.js"
+  },
   "files": [
     "dist",
     "./LICENSE",
