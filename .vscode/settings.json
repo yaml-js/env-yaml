@@ -1,0 +1,15 @@
+{
+  "jestrunner.jestCommand": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config ./config/jest.ts --",
+  "jestrunner.debugOptions": {
+    "runtimeExecutable": "node",
+    "runtimeArgs": [
+      "--experimental-vm-modules",
+      "${workspaceRoot}/node_modules/jest/bin/jest.js",
+      "--config",
+      "${workspaceRoot}/config/jest.ts"
+    ]
+},
+
+  "jest.jestCommandLine": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config ./config/jest.ts --",
+  "jest.rootPath": ".."
+}

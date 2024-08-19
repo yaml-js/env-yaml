@@ -70,12 +70,12 @@ settings:
 Load and use the configuration in your JavaScript/TypeScript project:
 
 ```typescript
-import { load } from '@yaml-js/envyaml';
+import config from '@yaml-js/envyaml';
 
-const config = load('.env.yaml', process.env.NODE_ENV || 'development');
+config('.env.yaml', process.env.NODE_ENV || 'development');
 
-console.log(`App running on port: ${config.app.port}`);
-console.log(`Database host: ${config.database.host}`);
+console.log(`App running on port: ${process.env.app.port}`);
+console.log(`Database host: ${process.env.database.host}`);
 ```
 
 ### Environment Variable Overrides
@@ -93,18 +93,17 @@ This allows you to inject environment-specific values without changing the confi
 
 ## API
 
-### load(filePath: string, environment: string): Config
+### config(filePath: string = '.env.yaml', environment: string = process.env.NODE_ENV): Config
 
 * **filePath**: The path to the YAML configuration file.
 * **environment**: The environment to load (e.g., development, production).
 
-Returns an object containing the configuration for the specified environment.
+Initializes process.env with the configuration for the specified environment.
 
 ### Example
 ```typescript
-import { load } from '@yaml-js/envyaml';
-
-const config = load('config.yaml', 'production');
+import config from '@yaml-js/envyaml';
+config();
 ```
 
 ## Advantages over .env Files
