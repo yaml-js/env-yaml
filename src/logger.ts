@@ -39,7 +39,15 @@ const colorFullMessageFormater: MessageFormater = (level: LogLevel, name: string
 }
 
 export const createConsoleLogger = (name: string, tag?: string, logLevel: string = 'INFO'): Logger => {
-  return createLogger(console.log, colorFullMessageFormater, name, tag, logLevel)
+  const writer = (message: string, args: unknown[]) => {
+    if (args && args.length > 0) {
+      console.log(message, args)
+    } else {
+      console.log(message)
+    }
+  }
+
+  return createLogger(writer, colorFullMessageFormater, name, tag, logLevel)
 }
 
 export const createLogger = (writer: LogWriter, messageFormater: MessageFormater, name: string, tag?: string, logLevel: string = 'INFO'): Logger => {

@@ -4,7 +4,7 @@ export default {
   coveragePathIgnorePatterns: [],
   clearMocks: true,
   collectCoverage: false,
-  collectCoverageFrom: ['src/**/*.ts'],
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
   coverageDirectory: 'build/reports/coverage',
   coverageProvider: 'babel',
   coverageReporters: ['text', 'cobertura', 'lcov'],

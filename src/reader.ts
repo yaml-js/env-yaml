@@ -83,6 +83,16 @@ const getFiles = (logger: Logger, filePath: string | undefined, environment: str
   }
 }
 
+// Pattern to match ${VAR_NAME} or ${VAR_NAME:DEFAULT_VALUE}
+const pattern = /\$\{(?<VAR>[A-Za-z0-9_]+)(?::(?<DEFAULT>[^\}]*))?\}/g
+
+const replaceEnvVariables = (content: string): string => {
+  const result = content.replaceAll(pattern, (_, varName, defaultValue) => {
+    return process.env[varName] ?? defaultValue ?? `\${${varName}}`
+  })
+  return result
+}
+
 export class Reader {
   private logger: Logger;
 
@@ -100,14 +110,36 @@ export class Reader {
       if (exists) {
         this.logger.debug(() => `Reading file ${file}`);
         const content = await fs.promises.readFile(file, 'utf8')
-        result = mergeFromContet(result, content);
+        result = mergeFromContet(result, replaceEnvVariables(content));
+      }
+    }
+    return result;
+  }
+
+  public readSync(filePath?: string, environment?: string): YamlContent {
+    const files = getFiles(this.logger, filePath, environment);
+    let result: YamlContent = {};
+
+    for (const file of files) {
+
+      const exists = fs.existsSync(file)
+      if (exists) {
+        this.logger.debug(() => `Reading file ${file}`);
+        const content = fs.readFileSync(file, 'utf8')
+        result = mergeFromContet(result, replaceEnvVariables(content));
       }
     }
     return result;
   }
 }
 
-const defaultReader = new Reader(createConsoleLogger('EnvYaml.Reader', undefined, 'INFO'));
-export default (filePath?: string, environment?: string): Promise<YamlContent> => {
+const defaultReader = new Reader();
+export const readAsync = (filePath?: string, environment?: string): Promise<YamlContent> => {
   return defaultReader.read(filePath, environment);
 }
+
+export const read = (filePath?: string, environment?: string): YamlContent => {
+  return defaultReader.readSync(filePath, environment);
+}
+
+export default read;
