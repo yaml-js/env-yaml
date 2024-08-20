@@ -17,25 +17,25 @@ export interface Logger {
   error(message: MessageProvider, ...args: unknown[]): void
 }
 
-
 const consoleStyles: { [key: string]: string } = {
-  RESET: "\x1b[0m",  // Reset to default
-  YELLOW: "\x1b[33m",  // Yellow color
-  RED: "\x1b[31m",     // Red color
-  BOLD: "\x1b[1m",     // Bold text
-};
+  RESET: '\x1b[0m', // Reset to default
+  YELLOW: '\x1b[33m', // Yellow color
+  RED: '\x1b[31m', // Red color
+  BOLD: '\x1b[1m' // Bold text
+}
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const colorFullMessageFormater: MessageFormater = (level: LogLevel, name: string, tag: string | undefined, message: string, _args: unknown[]) => {
-  let format = consoleStyles.BOLD;
+  let format = consoleStyles.BOLD
   if (level === LogLevel.WARN) {
-    format += consoleStyles.YELLOW;
+    format += consoleStyles.YELLOW
   } else if (level === LogLevel.ERROR) {
-    format += consoleStyles.RED;
+    format += consoleStyles.RED
   }
   // Construct the tag part
-  const tagPart = tag ? `:${tag}` : "";
-  const nameAndTagPart = `${format}[${name}${tagPart}]${consoleStyles.RESET}`;
-  return `${nameAndTagPart} ${message}`;
+  const tagPart = tag ? `:${tag}` : ''
+  const nameAndTagPart = `${format}[${name}${tagPart}]${consoleStyles.RESET}`
+  return `${nameAndTagPart} ${message}`
 }
 
 export const createConsoleLogger = (name: string, tag?: string, logLevel: string = 'INFO'): Logger => {

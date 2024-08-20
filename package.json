@@ -31,9 +31,8 @@
   "homepage": "https://yaml-js.org",
   "exports": {
     ".": {
-      "import": "./dist/yaml-js.envyaml.js",
-      "require": "./dist/yaml-js.envyaml.cjs",
-      "types": "./dist/yaml-js.envyaml.d.ts"
+      "types": "./dist/yaml-js.envyaml.d.ts",
+      "import": "./dist/yaml-js.envyaml.js"
     }
   },
   "scripts": {
