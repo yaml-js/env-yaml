@@ -11,6 +11,7 @@
     "envyaml": "./dist/cli/main.js"
   },
   "files": [
+    "src",
     "dist",
     "./LICENSE",
     "./README.md"
