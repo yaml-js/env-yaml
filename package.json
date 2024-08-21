@@ -1,7 +1,7 @@
 {
   "packageManager": "yarn@4.4.0",
   "name": "@yaml-js/envyaml",
-  "description": "Enhance your Vite-powered projects with seamless YAML integration using the Vite YAML Plugin. This lightweight and efficient plugin empowers developers to utilize YAML files directly within their Vite setups.",
+  "description": "YAML-JS EnvYaml is a modern replacement for traditional .env files, using YAML syntax.",
   "version": "${FROM TAG}",
   "type": "module",
   "types": "./dist/yaml-js.envyaml.d.ts",
