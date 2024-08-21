@@ -10,6 +10,7 @@
   "bin": {
     "envyaml": "./dist/cli/main.js"
   },
+  "license":  "MIT",
   "files": [
     "src",
     "dist",
