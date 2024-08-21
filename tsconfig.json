@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "outDir": "dist",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src/**/*", ],
+  "exclude": ["dist", "tests", "**/node-modules"]
+}
