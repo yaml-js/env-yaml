@@ -1,4 +1,3 @@
-
 name: Build
 on:
   push:
@@ -30,3 +29,6 @@ jobs:
     with:
       KEY: ${{ github.sha }}
       EVENT: ${{ github.event_name }}
+      REF: ${{ github.ref }}
+      BUILD_COMMAND: yarn build
+      TEST_COMMAND: yarn test
