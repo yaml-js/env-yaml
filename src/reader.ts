@@ -50,9 +50,9 @@ const discoverEnvironment = (logger: Logger): string => {
     return discoverEnvironmentFromValue(process.env.APP_ENV)
   } else if (process.env.NODE_ENV) {
     return discoverEnvironmentFromValue(process.env.NODE_ENV)
-  } else if (meta.env && meta.env.NODE_ENV) {
+  } else if (meta.env?.NODE_ENV) {
     return discoverEnvironmentFromValue(meta.env.NODE_ENV)
-  } else if (meta.env && meta.env.MODE) {
+  } else if (meta.env?.MODE) {
     return discoverEnvironmentFromValue(meta.env.MODE)
   } else {
     logger.warn(() => `No environment value found, defaulting to production`)
@@ -60,8 +60,9 @@ const discoverEnvironment = (logger: Logger): string => {
   }
 }
 
+const extensionMatchRegex = /\.([^.]+)$/
 const removeFileExtension = (filename: string): { name: string; extension: string | null } => {
-  const extensionMatch = filename.match(/\.([^.]+)$/)
+  const extensionMatch = extensionMatchRegex.exec(filename)
 
   if (extensionMatch) {
     const extension = extensionMatch[1]
@@ -73,8 +74,8 @@ const removeFileExtension = (filename: string): { name: string; extension: strin
 }
 
 const getFiles = (logger: Logger, filePath: string | undefined, environment: string | undefined): string[] => {
-  const env = environment || discoverEnvironment(logger)
-  filePath = filePath || './config'
+  const env = environment ?? discoverEnvironment(logger)
+  filePath = filePath ?? './config'
   const { name, extension } = removeFileExtension(filePath)
   if (extension) {
     return [`${filePath}`, `${name}.${env}.${extension}`, `${name}.${env}.local.${extension}`]
@@ -84,7 +85,7 @@ const getFiles = (logger: Logger, filePath: string | undefined, environment: str
 }
 
 // Pattern to match ${VAR_NAME} or ${VAR_NAME:DEFAULT_VALUE}
-const pattern = /\$\{(?<VAR>[A-Za-z0-9_]+)(?::(?<DEFAULT>[^\}]*))?\}/g
+const pattern = /\$\{(?<VAR>[A-Za-z0-9_]+)(?::(?<DEFAULT>[^}]*))?\}/g
 
 const replaceEnvVariables = (content: string): string => {
   const result = content.replaceAll(pattern, (_, varName, defaultValue) => {
