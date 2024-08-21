@@ -1,13 +1,13 @@
-name: Publish
+name: Build and Publish Package
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+    - 'v[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
 
 jobs:
   publish_packages:
-    name: Publish Packages
+    name: Build and Publish Package
     uses: yaml-js/.github/.github/workflows/jobs.publish.yml@main
     secrets: inherit
     permissions:
