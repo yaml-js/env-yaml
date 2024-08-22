@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import * as path from 'path'
 import { parse as parseYaml } from 'yaml'
 
 import { Logger, createConsoleLogger } from './logger'
@@ -60,17 +61,19 @@ const discoverEnvironment = (logger: Logger): string => {
   }
 }
 
-const extensionMatchRegex = /\.([^.]+)$/
-const removeFileExtension = (filename: string): { name: string; extension: string | null } => {
-  const extensionMatch = extensionMatchRegex.exec(filename)
+const removeFileExtension = (filePath: string): { name: string; extension: string | null } => {
+    const separator = path.sep;
+    const lastSeparatorIndex = filePath.lastIndexOf(separator);
+    const fileName = lastSeparatorIndex !== -1 ? filePath.slice(lastSeparatorIndex + 1) : filePath;
+    const lastDotIndex = fileName.lastIndexOf('.');
 
-  if (extensionMatch) {
-    const extension = extensionMatch[1]
-    const name = filename.slice(0, -extension.length - 1)
-    return { name, extension }
-  }
-
-  return { name: filename, extension: null }
+    if (lastDotIndex !== -1) {
+      const name = filePath.slice(0, filePath.length - (fileName.length - lastDotIndex));
+      const extension = fileName.slice(lastDotIndex + 1);
+      return { name, extension };
+    } else {
+      return { name: filePath, extension: null };
+    }
 }
 
 const getFiles = (logger: Logger, filePath: string | undefined, environment: string | undefined): string[] => {

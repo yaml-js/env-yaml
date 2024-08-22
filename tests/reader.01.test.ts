@@ -152,4 +152,28 @@ describe('Subject: Reader class', () => {
     const resultReadAsync = await readAsync(filePath, "dev")
     expect(resultReadAsync).toEqual(expected);
   });
+
+  it('Scenario 07: It probes for files using both yml and yaml extensions', async () => {
+    const filePathYml = './tests/resources/global/config';
+    const filePathYaml = './tests/resources/global-yaml/config';
+    const expected = {
+      env: "STAGING",
+      app: {
+        name: "my-app",
+        version: "1.0.0",
+        description: "My App"
+      },
+      api: {
+        url: "http://api.my-app.com",
+        key: "${API_KEY}"
+      }
+    }
+
+    const reader = new Reader();
+    const resultYml = await reader.read(filePathYml)
+    expect(resultYml).toEqual(expected);
+
+    const resultYaml = await reader.read(filePathYaml)
+    expect(resultYaml).toEqual(expected);
+  });
 });
