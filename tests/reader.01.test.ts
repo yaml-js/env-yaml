@@ -128,8 +128,8 @@ describe('Subject: Reader class', () => {
     expect(resultReadAsync).toEqual(expected);
   });
 
-  it('Scenario 06: Is repacles variable placeholders by process.env values', async () => {
-    const filePath = './tests/resources/global/config.yml';
+  it('Scenario 06: Evironment file overrides settings from global one on folders that have dots on the name', async () => {
+    const filePath = './tests/resources/global.and.dev/config.yml';
     const expected = {
       env: "STAGING",
       app: {
@@ -138,20 +138,18 @@ describe('Subject: Reader class', () => {
         description: "My App"
       },
       api: {
-        url: "http://api.my-app.com",
-        key: "123-api-key"
+        url: "http://stagging.my-app.com",
+        key: "${API_KEY}"
       }
     }
-
-    process.env["API_KEY"] = "123-api-key";
     const reader = new Reader();
-    const result = await reader.read(filePath)
+    const result = await reader.read(filePath, "dev")
     expect(result).toEqual(expected);
 
-    const resultReadSync = read(filePath)
+    const resultReadSync = read(filePath, "dev")
     expect(resultReadSync).toEqual(expected);
 
-    const resultReadAsync = await readAsync(filePath)
+    const resultReadAsync = await readAsync(filePath, "dev")
     expect(resultReadAsync).toEqual(expected);
   });
 });

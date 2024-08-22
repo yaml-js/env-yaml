@@ -80,7 +80,11 @@ const getFiles = (logger: Logger, filePath: string | undefined, environment: str
   if (extension) {
     return [`${filePath}`, `${name}.${env}.${extension}`, `${name}.${env}.local.${extension}`]
   } else {
-    return [`${filePath}`, `${filePath}.${env}`, `${filePath}.${env}.local`]
+    return [
+      `${filePath}`, `${filePath}.${env}`, `${filePath}.${env}.local`,
+      `${filePath}.yml`, `${filePath}.${env}.yml`, `${filePath}.${env}.local.yml`,
+      `${filePath}.yaml`, `${filePath}.${env}.yaml`, `${filePath}.${env}.local.yaml`,
+    ]
   }
 }
 
