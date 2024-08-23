@@ -86,22 +86,20 @@ const getFiles = (logger: Logger, includeLocal: boolean, filePath: string | unde
     } else {
       return [`${filePath}`, `${name}.${env}.${extension}`]
     }
+  } else if (includeLocal) {
+    return [
+      `${filePath}`,
+      `${filePath}.${env}`,
+      `${filePath}.${env}.local`,
+      `${filePath}.yml`,
+      `${filePath}.${env}.yml`,
+      `${filePath}.${env}.local.yml`,
+      `${filePath}.yaml`,
+      `${filePath}.${env}.yaml`,
+      `${filePath}.${env}.local.yaml`
+    ]
   } else {
-    if (includeLocal) {
-      return [
-        `${filePath}`,
-        `${filePath}.${env}`,
-        `${filePath}.${env}.local`,
-        `${filePath}.yml`,
-        `${filePath}.${env}.yml`,
-        `${filePath}.${env}.local.yml`,
-        `${filePath}.yaml`,
-        `${filePath}.${env}.yaml`,
-        `${filePath}.${env}.local.yaml`
-      ]
-    } else {
-      return [`${filePath}`, `${filePath}.${env}`, `${filePath}.yml`, `${filePath}.${env}.yml`, `${filePath}.yaml`, `${filePath}.${env}.yaml`]
-    }
+    return [`${filePath}`, `${filePath}.${env}`, `${filePath}.yml`, `${filePath}.${env}.yml`, `${filePath}.yaml`, `${filePath}.${env}.yaml`]
   }
 }
 
@@ -156,18 +154,18 @@ export class Reader {
   }
 }
 
-export interface Options {
+export interface ReaderOptions {
   includeLocal?: boolean
   filePath?: string
   environment?: string
 }
 
 const defaultReader = new Reader()
-export const readAsync = (options: Options): Promise<YamlContent> => {
+export const readAsync = (options: ReaderOptions): Promise<YamlContent> => {
   return defaultReader.read(options.includeLocal ?? true, options.filePath, options.environment)
 }
 
-export const read = (options: Options): YamlContent => {
+export const read = (options: ReaderOptions): YamlContent => {
   return defaultReader.readSync(options.includeLocal ?? true, options.filePath, options.environment)
 }
 

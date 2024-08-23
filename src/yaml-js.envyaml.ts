@@ -1,5 +1,5 @@
 export * from './types'
-export { Reader, read, readAsync } from './reader'
+export { type ReaderOptions, Reader, read, readAsync } from './reader'
 export { Injector, inject, injectAsync } from './injector'
 export { config, configAsync } from './config'
 
