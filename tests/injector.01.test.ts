@@ -42,7 +42,7 @@ describe('Subject: Injector class', () => {
     }
 
     process.env = {};
-    await injectAsync(readAsync(filePath));
+    await injectAsync(readAsync({ filePath }));
     expect(process.env).toEqual(expected);
   });
 
@@ -63,7 +63,7 @@ describe('Subject: Injector class', () => {
     }
 
     process.env = { env: "PRODUCTION" };
-    await injectAsync(readAsync(filePath));
+    await injectAsync(readAsync({ filePath }));
     expect(process.env["app"]).toEqual(expected["app"]);
     expect(process.env["api"]).toEqual(expected["api"]);
     expect(process.env["env"]).toEqual("PRODUCTION");
