@@ -18,13 +18,13 @@ describe('Subject: Reader class', () => {
     }
 
     const reader = new Reader();
-    const result = await reader.read(filePath)
+    const result = await reader.read(true, filePath)
     expect(result).toEqual(expected);
 
-    const resultReadSync = read(filePath)
+    const resultReadSync = read({ filePath })
     expect(resultReadSync).toEqual(expected);
 
-    const resultReadAsync = await readAsync(filePath)
+    const resultReadAsync = await readAsync({ filePath})
     expect(resultReadAsync).toEqual(expected);
   });
 
@@ -43,13 +43,13 @@ describe('Subject: Reader class', () => {
       }
     }
     const reader = new Reader();
-    const result = await reader.read(filePath, "dev")
+    const result = await reader.read(true, filePath, "dev")
     expect(result).toEqual(expected);
 
-    const resultReadSync = read(filePath, "dev")
+    const resultReadSync = read({ filePath, environment: "dev" })
     expect(resultReadSync).toEqual(expected);
 
-    const resultReadAsync = await readAsync(filePath, "dev")
+    const resultReadAsync = await readAsync({ filePath, environment: "dev"})
     expect(resultReadAsync).toEqual(expected);
   });
 
@@ -68,13 +68,13 @@ describe('Subject: Reader class', () => {
       }
     }
     const reader = new Reader();
-    const result = await reader.read(filePath, "qa")
+    const result = await reader.read(true, filePath, "qa")
     expect(result).toEqual(expected);
 
-    const resultReadSync = read(filePath, "qa")
+    const resultReadSync = read({filePath, environment: "qa"})
     expect(resultReadSync).toEqual(expected);
 
-    const resultReadAsync = await readAsync(filePath, "qa")
+    const resultReadAsync = await readAsync({filePath, environment: "qa"})
     expect(resultReadAsync).toEqual(expected);
   });
 
@@ -93,13 +93,13 @@ describe('Subject: Reader class', () => {
       }
     }
     const reader = new Reader();
-    const result = await reader.read(filePath, "production")
+    const result = await reader.read(true, filePath, "production")
     expect(result).toEqual(expected);
 
-    const resultReadSync = read(filePath, "production")
+    const resultReadSync = read({filePath, environment: "production"})
     expect(resultReadSync).toEqual(expected);
 
-    const resultReadAsync = await readAsync(filePath, "production")
+    const resultReadAsync = await readAsync({filePath, environment: "production"})
     expect(resultReadAsync).toEqual(expected);
   });
 
@@ -118,13 +118,13 @@ describe('Subject: Reader class', () => {
       }
     }
     const reader = new Reader();
-    const result = await reader.read(filePath, "PROD")
+    const result = await reader.read(true, filePath, "PROD")
     expect(result).toEqual(expected);
 
-    const resultReadSync = read(filePath, "PROD")
+    const resultReadSync = read({filePath, environment: "PROD"})
     expect(resultReadSync).toEqual(expected);
 
-    const resultReadAsync = await readAsync(filePath, "PROD")
+    const resultReadAsync = await readAsync({filePath, environment: "PROD"})
     expect(resultReadAsync).toEqual(expected);
   });
 
@@ -143,13 +143,13 @@ describe('Subject: Reader class', () => {
       }
     }
     const reader = new Reader();
-    const result = await reader.read(filePath, "dev")
+    const result = await reader.read(true, filePath, "dev")
     expect(result).toEqual(expected);
 
-    const resultReadSync = read(filePath, "dev")
+    const resultReadSync = read({filePath, environment: "dev"})
     expect(resultReadSync).toEqual(expected);
 
-    const resultReadAsync = await readAsync(filePath, "dev")
+    const resultReadAsync = await readAsync({filePath, environment: "dev"})
     expect(resultReadAsync).toEqual(expected);
   });
 
@@ -170,10 +170,10 @@ describe('Subject: Reader class', () => {
     }
 
     const reader = new Reader();
-    const resultYml = await reader.read(filePathYml)
+    const resultYml = await reader.read(true, filePathYml)
     expect(resultYml).toEqual(expected);
 
-    const resultYaml = await reader.read(filePathYaml)
+    const resultYaml = await reader.read(true, filePathYaml)
     expect(resultYaml).toEqual(expected);
   });
 });

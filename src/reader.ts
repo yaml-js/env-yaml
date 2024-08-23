@@ -62,32 +62,46 @@ const discoverEnvironment = (logger: Logger): string => {
 }
 
 const removeFileExtension = (filePath: string): { name: string; extension: string | null } => {
-    const separator = path.sep;
-    const lastSeparatorIndex = filePath.lastIndexOf(separator);
-    const fileName = lastSeparatorIndex !== -1 ? filePath.slice(lastSeparatorIndex + 1) : filePath;
-    const lastDotIndex = fileName.lastIndexOf('.');
+  const separator = path.sep
+  const lastSeparatorIndex = filePath.lastIndexOf(separator)
+  const fileName = lastSeparatorIndex !== -1 ? filePath.slice(lastSeparatorIndex + 1) : filePath
+  const lastDotIndex = fileName.lastIndexOf('.')
 
-    if (lastDotIndex !== -1) {
-      const name = filePath.slice(0, filePath.length - (fileName.length - lastDotIndex));
-      const extension = fileName.slice(lastDotIndex + 1);
-      return { name, extension };
-    } else {
-      return { name: filePath, extension: null };
-    }
+  if (lastDotIndex !== -1) {
+    const name = filePath.slice(0, filePath.length - (fileName.length - lastDotIndex))
+    const extension = fileName.slice(lastDotIndex + 1)
+    return { name, extension }
+  } else {
+    return { name: filePath, extension: null }
+  }
 }
 
-const getFiles = (logger: Logger, filePath: string | undefined, environment: string | undefined): string[] => {
+const getFiles = (logger: Logger, includeLocal: boolean, filePath: string | undefined, environment: string | undefined): string[] => {
   const env = environment ?? discoverEnvironment(logger)
   filePath = filePath ?? './config'
   const { name, extension } = removeFileExtension(filePath)
   if (extension) {
-    return [`${filePath}`, `${name}.${env}.${extension}`, `${name}.${env}.local.${extension}`]
+    if (includeLocal) {
+      return [`${filePath}`, `${name}.${env}.${extension}`, `${name}.${env}.local.${extension}`]
+    } else {
+      return [`${filePath}`, `${name}.${env}.${extension}`]
+    }
   } else {
-    return [
-      `${filePath}`, `${filePath}.${env}`, `${filePath}.${env}.local`,
-      `${filePath}.yml`, `${filePath}.${env}.yml`, `${filePath}.${env}.local.yml`,
-      `${filePath}.yaml`, `${filePath}.${env}.yaml`, `${filePath}.${env}.local.yaml`,
-    ]
+    if (includeLocal) {
+      return [
+        `${filePath}`,
+        `${filePath}.${env}`,
+        `${filePath}.${env}.local`,
+        `${filePath}.yml`,
+        `${filePath}.${env}.yml`,
+        `${filePath}.${env}.local.yml`,
+        `${filePath}.yaml`,
+        `${filePath}.${env}.yaml`,
+        `${filePath}.${env}.local.yaml`
+      ]
+    } else {
+      return [`${filePath}`, `${filePath}.${env}`, `${filePath}.yml`, `${filePath}.${env}.yml`, `${filePath}.yaml`, `${filePath}.${env}.yaml`]
+    }
   }
 }
 
@@ -108,8 +122,8 @@ export class Reader {
     this.logger = logger ?? createConsoleLogger('EnvYaml.Reader', undefined, 'INFO')
   }
 
-  public async read(filePath?: string, environment?: string): Promise<YamlContent> {
-    const files = getFiles(this.logger, filePath, environment)
+  public async read(includeLocal: boolean = true, filePath?: string, environment?: string): Promise<YamlContent> {
+    const files = getFiles(this.logger, includeLocal, filePath, environment)
     let result: YamlContent = {}
 
     for (const file of files) {
@@ -126,8 +140,8 @@ export class Reader {
     return result
   }
 
-  public readSync(filePath?: string, environment?: string): YamlContent {
-    const files = getFiles(this.logger, filePath, environment)
+  public readSync(includeLocal: boolean = true, filePath?: string, environment?: string): YamlContent {
+    const files = getFiles(this.logger, includeLocal, filePath, environment)
     let result: YamlContent = {}
 
     for (const file of files) {
@@ -142,13 +156,19 @@ export class Reader {
   }
 }
 
-const defaultReader = new Reader()
-export const readAsync = (filePath?: string, environment?: string): Promise<YamlContent> => {
-  return defaultReader.read(filePath, environment)
+export interface Options {
+  includeLocal?: boolean
+  filePath?: string
+  environment?: string
 }
 
-export const read = (filePath?: string, environment?: string): YamlContent => {
-  return defaultReader.readSync(filePath, environment)
+const defaultReader = new Reader()
+export const readAsync = (options: Options): Promise<YamlContent> => {
+  return defaultReader.read(options.includeLocal ?? true, options.filePath, options.environment)
+}
+
+export const read = (options: Options): YamlContent => {
+  return defaultReader.readSync(options.includeLocal ?? true, options.filePath, options.environment)
 }
 
 export default read
