@@ -46,15 +46,10 @@ const discoverEnvironmentFromValue = (value: string): string => {
 }
 
 const discoverEnvironment = (logger: Logger): string => {
-  const meta = import.meta
   if (process.env.APP_ENV) {
     return discoverEnvironmentFromValue(process.env.APP_ENV)
   } else if (process.env.NODE_ENV) {
     return discoverEnvironmentFromValue(process.env.NODE_ENV)
-  } else if (meta.env?.NODE_ENV) {
-    return discoverEnvironmentFromValue(meta.env.NODE_ENV)
-  } else if (meta.env?.MODE) {
-    return discoverEnvironmentFromValue(meta.env.MODE)
   } else {
     logger.warn(() => `No environment value found, defaulting to production`)
     return 'production'

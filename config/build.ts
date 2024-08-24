@@ -3,7 +3,7 @@ import { defineConfig } from 'tsup'
 export default defineConfig({
   name: "@yaml-js/envyaml",
   entry: ['src/yaml-js.envyaml.ts', 'src/cli/main.ts'],
-  format: ['esm'],
+  format: ['esm', "cjs"],
   target: 'node22',
   dts: true,
   minify: true,
