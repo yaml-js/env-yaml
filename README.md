@@ -5,6 +5,7 @@
 ![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/org.yaml-js.envyaml?server=https%3A%2F%2Fsonarcloud.io)
 ![Sonar Tech Debt](https://img.shields.io/sonar/tech_debt/org.yaml-js.envyaml?server=https%3A%2F%2Fsonarcloud.io)
 ![Sonar Coverage](https://img.shields.io/sonar/coverage/org.yaml-js.envyaml?server=https%3A%2F%2Fsonarcloud.io)
+[![Known Vulnerabilities](https://snyk.io/test/github/yaml-js/env/badge.svg)](https://snyk.io/test/github/yaml-js/env/)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/yaml-js/env)
 
 
