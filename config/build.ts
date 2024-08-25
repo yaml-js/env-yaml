@@ -9,7 +9,7 @@ export default defineConfig({
   minify: true,
   sourcemap: true,
   clean: true,
-  outDir: 'dist',
+  outDir: 'lib',
   skipNodeModulesBundle: false,
   platform: 'node'
 });
