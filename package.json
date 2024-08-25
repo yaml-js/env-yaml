@@ -20,7 +20,7 @@
   "license": "MIT",
   "files": [
     "src",
-    "dist",
+    "lib",
     "./LICENSE",
     "./README.md"
   ],
